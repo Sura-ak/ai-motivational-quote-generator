@@ -1,24 +1,23 @@
 import streamlit as st
 import openai
 
+# Set up Streamlit page
 st.set_page_config(page_title="AI Motivational Quote Generator")
 st.title("💭 AI Motivational Quote Generator")
 st.write("Enter a theme or feeling and let AI inspire you!")
 
-# Input: OpenAI API Key
-api_key = st.text_input("Enter your OpenAI API Key", type="password")
+# ✅ Load your API key from secrets.toml
+api_key = st.secrets["OPENAI_API_KEY"]
 
-# Input: User theme
+# Input: User's theme or mood
 user_input = st.text_input("What's your mood or theme? (e.g., focus, fear, growth)")
 
 if st.button("Generate Quote"):
-    if not api_key:
-        st.error("Please enter your OpenAI API key.")
-    elif not user_input:
+    if not user_input:
         st.error("Please enter a theme or feeling.")
     else:
         try:
-            # Connect to OpenAI using the new method
+            # Initialize OpenAI client
             client = openai.OpenAI(api_key=api_key)
 
             response = client.chat.completions.create(
