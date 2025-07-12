@@ -6,7 +6,7 @@ st.set_page_config(page_title="AI Motivational Quote Generator")
 st.title("💭 AI Motivational Quote Generator")
 st.write("Enter a theme or feeling and let AI inspire you!")
 
-# ✅ Load your API key from secrets.toml
+
 api_key = st.secrets["OPENAI_API_KEY"]
 
 # Input: User's theme or mood
