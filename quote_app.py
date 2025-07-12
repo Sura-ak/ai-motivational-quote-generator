@@ -21,12 +21,20 @@ if st.button("Generate Quote"):
             client = openai.OpenAI(api_key=api_key)
 
             response = client.chat.completions.create(
-                model="gpt-3.5-turbo",
-                messages=[
-                    {"role": "system", "content": "You are a motivational quote generator."},
-                    {"role": "user", "content": f"Give me a motivational quote about {user_input}."}
-                ]
-            )
+    model="gpt-3.5-turbo",
+    temperature=0.9,  # 🔥 Add randomness for variety
+    messages=[
+        {
+            "role": "system",
+            "content": "You are a wise and creative motivational quote generator. Each quote should be short, powerful, and emotionally inspiring."
+        },
+        {
+            "role": "user",
+            "content": f"Give me a motivational quote about {user_input}."
+        }
+    ]
+)
+
 
             quote = response.choices[0].message.content
             st.success("Here's your quote:")
