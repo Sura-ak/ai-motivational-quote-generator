@@ -127,6 +127,9 @@ st.markdown("""
         body, .stApp {
             background-color: #121212 !important;
         }
+            h1, h2, h3, h4, h5, h6 {
+                color: #ffffff !important;
+            }
 
         .animated-title,
         .subtitle,
@@ -144,7 +147,7 @@ st.markdown("""
         }
 
         .feedback-box textarea::placeholder {
-            color: #cccccc !important;
+            color: #bbbbbb !important;
         }
 
         .stButton>button {
