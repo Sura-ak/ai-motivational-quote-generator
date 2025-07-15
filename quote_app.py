@@ -90,6 +90,17 @@ st.markdown("""
         color: #666666;
         margin-bottom: 15px;
     }
+            .feedback-box textarea {
+                width: 100% !important;
+                height: 160px !important;
+                padding: 14px;
+                font-size: 14px;
+                color: #000000;
+                resize: vertical;
+                background-color: #ffffff;
+                border-radius: 5px;
+                border: 1px solid #cccccc;
+            }
     .feedback-box textarea::placeholder {
         color: #666666 !important;
     }
@@ -99,6 +110,9 @@ st.markdown("""
         body, .stApp {
             background-color: #121212 !important;
         }
+            .feedback-card {
+                background-color: #1e1e1e !important;
+            }
 
         /* Text, labels, markdown, headers, and alert messages */
         h1, h2, h3, h4, h5, h6,
@@ -107,7 +121,7 @@ st.markdown("""
         .stMarkdown, .stSubheader,
         .stSuccess, .stWarning, .stError,
         .feedback-card h3, .feedback-card p {
-            color: #ffffff !important;
+            color: #dddddd !important;
         }
 
         /* Inputs, textareas, selectboxes */
