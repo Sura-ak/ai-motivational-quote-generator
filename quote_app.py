@@ -16,10 +16,15 @@ st.markdown("""
     
         }
 
-        /* Hide all anchor link icons */
-        header [data-testid="stMarkdownContainer"] a {
-            display: none !important;
-        }
+        /* Hide all anchor links globally */
+a[href^="#"] {
+    display: none !important;
+}
+
+header [data-testid="stMarkdownContainer"] a,
+section [data-testid="stMarkdownContainer"] a {
+    display: none !important;
+}
 
         .block-container {
             padding-top: 2rem;
@@ -102,7 +107,7 @@ col1, col2 = st.columns(2)
 
 # --- Basic Prompt ---
 with col1:
-    st.subheader("Basic Prompt")
+    st.subheader("BASIC PROMPT")
     basic_prompt = st.text_input("Mood or Theme (e.g., courage, success)", key="basic_input")
     if st.button("Generate", key="generate_basic"):
         if not basic_prompt:
@@ -126,7 +131,7 @@ with col1:
 
 # --- Structured Prompt ---
 with col2:
-    st.subheader("Structured Prompt")
+    st.subheader("STRUCTURED PROMPT")
     mood = st.text_input("Mood (e.g., resilience, creativity)", key="mood")
     audience = st.text_input("Audience (optional, e.g., students, founders)", key="audience")
 
@@ -194,6 +199,7 @@ st.markdown("""
         font-size: 14px;
         resize: vertical;
         background-color: #ffffff;
+        Text color: #000000;
     }
     .feedback-btn button {
         background-color: #009999;
@@ -210,7 +216,7 @@ st.markdown("""
     </style>
     <div class="feedback-card">
         <h3> Share Your Feedback</h3>
-        <p>If you have any suggestions or feedback, I’d love to hear your thoughts!</p>
+        <p>If you have any suggestions or feedback, feel free to drop them here. I’d love to hear your thoughts!</p>
         <form action="https://formspree.io/f/xanbwkle" method="POST">
             <div class="feedback-box">
                 <textarea name="feedback" placeholder="Your feedback here..." required></textarea>
