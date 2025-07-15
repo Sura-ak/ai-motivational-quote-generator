@@ -92,8 +92,29 @@ section [data-testid="stMarkdownContainer"] a {
         label[data-testid="stMarkdownContainer"] > div > a {
             display: none;
         }
+             @media (prefers-color-scheme: dark) {
+        body, .stApp {
+            background-color: #121212 !important;
+        }
+        .animated-title, .subtitle, .feedback-card h3, .feedback-card p {
+            color: #ffffff !important;
+        }
+        .stTextInput > div > div > input,
+        .stSelectbox > div > div,
+        .feedback-box textarea {
+            background-color: #1e1e1e !important;
+            color: #ffffff !important;
+            border: 1px solid #444444 !important;
+        }
+        .stButton>button {
+            background-color: #007777 !important;
+            color: white !important;
+        }
+    }
+</style>
     </>
 """, unsafe_allow_html=True)
+
 
 # --- Title ---
 st.markdown('<h1 class="animated-title">AI-POWERED QUOTE GENERATOR</h1>', unsafe_allow_html=True)
