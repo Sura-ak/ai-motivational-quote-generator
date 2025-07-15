@@ -10,100 +10,131 @@ st.set_page_config(
 
 # --- Custom CSS Styling ---
 st.markdown("""
-    <style>
-        body, .stApp {
-            background-color: #f8f8f8;
-    
-        }
+<style>
+    body, .stApp {
+        background-color: #f8f8f8;
+    }
 
-        /* Hide all anchor links globally */
-a[href^="#"] {
-    display: none !important;
-}
+    /* Hide all anchor links globally */
+    a[href^="#"],
+    header [data-testid="stMarkdownContainer"] a,
+    section [data-testid="stMarkdownContainer"] a,
+    label[data-testid="stMarkdownContainer"] > div > a {
+        display: none !important;
+    }
 
-header [data-testid="stMarkdownContainer"] a,
-section [data-testid="stMarkdownContainer"] a {
-    display: none !important;
-}
+    .block-container {
+        padding-top: 2rem;
+    }
 
-        .block-container {
-            padding-top: 2rem;
-        }
-        h1, h2, h3, h4, h5, h6 {
-            display: block;
-        }
-        .animated-title {
-            font-size: 40px;
-            font-weight: bold;
-            color: #004d4d;
-            text-align: center;
-            margin-top: 40px;
-            animation: bounceIn 1s ease-out;
-        }
-        @keyframes bounceIn {
-            0% {
-                transform: scale(0.8);
-                opacity: 0;
-            }
-            60% {
-                transform: scale(1.05);
-                opacity: 1;
-            }
-            100% {
-                transform: scale(1);
-            }
-        }
-        .subtitle {
-            text-align: center;
-            font-size: 1.1rem;
-            color: #003333 !important; 
-            margin-bottom: 2rem;
-        }
-            @media (prefers-color-scheme: dark) {
-                .subtitle {
-                    color: #ffffff !important;
-                }
-            }
-        .stTextInput > div > div > input,
-        .stSelectbox > div > div {
-            background-color: #ffffff !important;
-            color: #000000;
-            border-radius: 5px;
-            border: 1px solid #cccccc;
-        }
-        .stButton>button {
-            background-color: #009999;
-            color: white;
-            font-weight: bold;
-            border-radius: 5px;
-            border: none;
-        }
-        .stButton>button:hover {
-            background-color: #007777;
-        }
-        .feedback-box {
-            background-color: #e0f7f7;
-            padding: 1.5rem;
-            border-radius: 10px;
-            width: 400px;
-            margin: 2rem auto;
-            box-shadow: 2px 2px 8px rgba(0,0,0,0.05);
-        }
-        .feedback-box textarea {
-            width: 100%;
-            height: 100px;
-            border-radius: 5px;
-        }
-        label[data-testid="stMarkdownContainer"] > div > a {
-            display: none;
-        }
-             @media (prefers-color-scheme: dark) {
+    .animated-title {
+        font-size: 40px;
+        font-weight: bold;
+        color: #004d4d;
+        text-align: center;
+        margin-top: 40px;
+        animation: bounceIn 1s ease-out;
+    }
+
+    @keyframes bounceIn {
+        0% { transform: scale(0.8); opacity: 0; }
+        60% { transform: scale(1.05); opacity: 1; }
+        100% { transform: scale(1); }
+    }
+
+    .subtitle {
+        text-align: center;
+        font-size: 1.1rem;
+        color: #003333;
+        margin-bottom: 2rem;
+    }
+
+    .custom-box {
+        background-color: #e0f7f7;
+        padding: 25px;
+        border-radius: 10px;
+        margin: 10px;
+        box-shadow: 2px 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .stTextInput > div > div > input,
+    .stSelectbox > div > div,
+    .feedback-box textarea {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+        border-radius: 5px;
+        border: 1px solid #cccccc;
+    }
+
+    .stButton>button {
+        background-color: #009999;
+        color: white;
+        font-weight: bold;
+        border-radius: 5px;
+        border: none;
+    }
+
+    .stButton>button:hover {
+        background-color: #007777;
+    }
+
+    .feedback-card {
+        background-color: #f5f5f5;
+        padding: 30px 25px 20px 25px;
+        border-radius: 10px;
+        width: 500px;
+        margin: 40px auto;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        text-align: center;
+    }
+
+    .feedback-card h3 {
+        margin-bottom: 10px;
+        font-size: 22px;
+        color: #333333;
+    }
+
+    .feedback-card p {
+        font-size: 14px;
+        color: #666666;
+        margin-bottom: 15px;
+    }
+
+    .feedback-box textarea {
+        width: 100% !important;
+        height: 100px !important;
+        padding: 10px;
+        font-size: 14px;
+        resize: vertical;
+    }
+
+    .feedback-btn button {
+        background-color: #009999;
+        color: white;
+        font-weight: bold;
+        padding: 8px 20px;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .feedback-btn button:hover {
+        background-color: #007777;
+    }
+
+    /* Fix for dark mode */
+    @media (prefers-color-scheme: dark) {
         body, .stApp {
             background-color: #121212 !important;
         }
-        .animated-title, .subtitle, .subtitle* .feedback-card h3, .feedback-card p, .feedback-card*{
+
+        .animated-title,
+        .subtitle,
+        .feedback-card h3,
+        .feedback-card p {
             color: #ffffff !important;
         }
+
         .stTextInput > div > div > input,
         .stSelectbox > div > div,
         .feedback-box textarea {
@@ -111,13 +142,22 @@ section [data-testid="stMarkdownContainer"] a {
             color: #ffffff !important;
             border: 1px solid #444444 !important;
         }
+
+        .feedback-box textarea::placeholder {
+            color: #cccccc !important;
+        }
+
         .stButton>button {
             background-color: #007777 !important;
             color: white !important;
         }
     }
-</style>
 
+    /* Light mode placeholder fallback */
+    .feedback-box textarea::placeholder {
+        color: #666666 !important;
+    }
+</style>
 """, unsafe_allow_html=True)
 
 
