@@ -104,12 +104,20 @@ st.markdown("""
     .feedback-box textarea::placeholder {
         color: #666666 !important;
     }
+            .quote-text{
+            color: #004d4d !important;
+            font-size: 18px !important;
+            line-height: 1.4;
+            }
 
     /* --- Dark Mode Overrides --- */
     @media (prefers-color-scheme: dark) {
         body, .stApp {
             background-color: #121212 !important;
         }
+            .quote-text{
+                color: #ffffff !important;
+            }
             .feedback-card {
                 background-color: #1e1e1e !important;
             }
@@ -209,18 +217,23 @@ with col1:
                     st.error(f"Error: {e}")
 
 # --- Structured Prompt ---
+# Tone and Style options
+tone_options = ["Empowering", "Reflective", "Motivational", "Other"]
+style_options = ["Inspirational", "Humorous", "Narrative", "Other"]
 with col2:
     st.subheader("STRUCTURED PROMPT")
     mood = st.text_input("Mood (e.g., resilience, creativity)", key="mood")
     audience = st.text_input("Audience (optional, e.g., students, founders)", key="audience")
 
-    tone_options = ["Warm", "Bold", "Empowering", "Professional", "Other"]
     tone = st.selectbox("Tone", tone_options, key="tone")
-    custom_tone = st.text_input("Enter custom tone", key="custom_tone") if tone == "Other" else tone
+    custom_tone = st.text_input("Enter custom tone", key="custom_tone") if tone == "Other" else ""
 
-    style_options = ["Inspirational", "Reflective", "Actionable", "Other"]
     style = st.selectbox("Style", style_options, key="style")
-    custom_style = st.text_input("Enter custom style", key="custom_style") if style == "Other" else style
+    custom_style = st.text_input("Enter custom style", key="custom_style") if style == "Other" else ""
+
+    format_options = ["One-liner", "Poetic", "Short Paragraph", "Custom"]
+    quote_format = st.selectbox("Quote Format", format_options, key="quote_format")
+    custom_format = st.text_input("Describe custom format", key="custom_format") if quote_format == "Custom" else ""
 
     if st.button("Generate", key="generate_structured"):
         if not mood:
@@ -230,22 +243,28 @@ with col2:
                 try:
                     final_tone = custom_tone if tone == "Other" else tone
                     final_style = custom_style if style == "Other" else style
-                    prompt = f"Write a {final_tone.lower()} and {final_style.lower()} motivational quote about being {mood.lower()}."
+                    final_format = custom_format if quote_format == "Custom" else quote_format
+
+                    prompt = f"Write a {final_format.lower()} motivational quote in a {final_tone.lower()} and {final_style.lower()} tone about being {mood.lower()}."
                     if audience:
-                        prompt += f" Tailor it for {audience.lower()}."
+                        prompt += f" It should resonate with {audience.lower()}."
+                    prompt += "\nKeep it concise and meaningful. Avoid clichés."
+
                     client = openai.OpenAI(api_key=api_key)
                     response = client.chat.completions.create(
                         model="gpt-3.5-turbo",
                         messages=[
-                            {"role": "system", "content": "You are a skilled motivational quote generator."},
+                            {"role": "system", "content": "You are an expert motivational quote writer."},
                             {"role": "user", "content": prompt}
                         ]
                     )
+
                     quote = response.choices[0].message.content.strip()
                     st.success("Here’s your crafted quote:")
                     st.markdown(f'<p style="color:#004d4d; font-size:18px;">💬 {quote}</p>', unsafe_allow_html=True)
+
                 except Exception as e:
-                    st.error(f"Error: {e}")
+                    st.error(f"Something went wrong while generating the quote: {e}")
 
 # --- Feedback Section ---
 st.markdown("""
