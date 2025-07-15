@@ -7,26 +7,22 @@ st.set_page_config(
     layout="wide"
 )
 
-
-# --- Custom CSS Styling ---
+# --- Custom CSS Styling (light + dark mode) ---
 st.markdown("""
 <style>
+    /* --- Base Light Mode Styles --- */
     body, .stApp {
         background-color: #f8f8f8;
     }
-
-    /* Hide all anchor links globally */
     a[href^="#"],
     header [data-testid="stMarkdownContainer"] a,
     section [data-testid="stMarkdownContainer"] a,
     label[data-testid="stMarkdownContainer"] > div > a {
         display: none !important;
     }
-
     .block-container {
         padding-top: 2rem;
     }
-
     .animated-title {
         font-size: 40px;
         font-weight: bold;
@@ -35,20 +31,17 @@ st.markdown("""
         margin-top: 40px;
         animation: bounceIn 1s ease-out;
     }
-
     @keyframes bounceIn {
         0% { transform: scale(0.8); opacity: 0; }
         60% { transform: scale(1.05); opacity: 1; }
         100% { transform: scale(1); }
     }
-
     .subtitle {
         text-align: center;
         font-size: 1.1rem;
         color: #003333;
         margin-bottom: 2rem;
     }
-
     .custom-box {
         background-color: #e0f7f7;
         padding: 25px;
@@ -56,8 +49,8 @@ st.markdown("""
         margin: 10px;
         box-shadow: 2px 2px 8px rgba(0,0,0,0.05);
     }
-
     .stTextInput > div > div > input,
+    .stTextArea > div > div > textarea,
     .stSelectbox > div > div,
     .feedback-box textarea {
         background-color: #ffffff !important;
@@ -65,19 +58,19 @@ st.markdown("""
         border-radius: 5px;
         border: 1px solid #cccccc;
     }
-
-    .stButton>button {
-        background-color: #009999;
-        color: white;
+    .stButton>button,
+    .feedback-btn button {
+        background-color: #009999 !important;
+        color: white !important;
         font-weight: bold;
         border-radius: 5px;
         border: none;
+        cursor: pointer;
     }
-
-    .stButton>button:hover {
-        background-color: #007777;
+    .stButton>button:hover,
+    .feedback-btn button:hover {
+        background-color: #007777 !important;
     }
-
     .feedback-card {
         background-color: #f5f5f5;
         padding: 30px 25px 20px 25px;
@@ -87,82 +80,67 @@ st.markdown("""
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
         text-align: center;
     }
-
     .feedback-card h3 {
         margin-bottom: 10px;
         font-size: 22px;
         color: #333333;
     }
-
     .feedback-card p {
         font-size: 14px;
         color: #666666;
         margin-bottom: 15px;
     }
-
-    .feedback-box textarea {
-        width: 100% !important;
-        height: 100px !important;
-        padding: 10px;
-        font-size: 14px;
-        resize: vertical;
-    }
-
-    .feedback-btn button {
-        background-color: #009999;
-        color: white;
-        font-weight: bold;
-        padding: 8px 20px;
-        border-radius: 5px;
-        border: none;
-        cursor: pointer;
-    }
-
-    .feedback-btn button:hover {
-        background-color: #007777;
-    }
-@media (prefers-color-scheme: dark) {
-    body, .stApp {
-        background-color: #121212 !important;
-    }
-
-    h1, h2, h3, h4, h5, h6,
-    .subtitle,
-    label,
-    .stTextInput label,
-    .stSelectbox label,
-    .feedback-card h3,
-    .feedback-card p {
-        color: #ffffff !important;
-    }
-
-    .stTextInput > div > div > input,
-    .stSelectbox > div > div,
-    .feedback-box textarea {
-        background-color: #1e1e1e !important;
-        color: #ffffff !important;
-        border: 1px solid #444444 !important;
-    }
-
     .feedback-box textarea::placeholder {
-        color: #bbbbbb !important;
+        color: #666666 !important;
     }
 
-    .stButton>button {
-        background-color: #007777 !important;
-        color: white !important;
-    }
+    /* --- Dark Mode Overrides --- */
+    @media (prefers-color-scheme: dark) {
+        body, .stApp {
+            background-color: #121212 !important;
+        }
 
-    /* Fix dark mode placeholder in text input */
-    ::placeholder {
-        color: #bbbbbb !important;
-    }
-}
-   
+        /* Text, labels, markdown, headers, and alert messages */
+        h1, h2, h3, h4, h5, h6,
+        .subtitle, .animated-title, .custom-box,
+        label, .stTextInput label, .stSelectbox label,
+        .stMarkdown, .stSubheader,
+        .stSuccess, .stWarning, .stError,
+        .feedback-card h3, .feedback-card p {
+            color: #ffffff !important;
+        }
+
+        /* Inputs, textareas, selectboxes */
+        .stTextInput > div > div > input,
+        .stTextArea > div > div > textarea,
+        .stSelectbox > div > div,
+        .feedback-box textarea {
+            background-color: #1e1e1e !important;
+            color: #ffffff !important;
+            border: 1px solid #444444 !important;
+        }
+
+        /* Placeholder text everywhere */
+        ::placeholder,
+        .stTextInput > div > div > input::placeholder,
+        .stTextArea > div > div > textarea::placeholder,
+        .feedback-box textarea::placeholder {
+            color: #bbbbbb !important;
+        }
+
+        /* Buttons */
+        .stButton>button,
+        .feedback-btn button {
+            background-color: #007777 !important;
+            color: #ffffff !important;
+        }
+        .stButton>button:hover,
+        .feedback-btn button:hover {
+            background-color: #005f5f !important;
+        }
     }
 </style>
 """, unsafe_allow_html=True)
-
 
 # --- Title ---
 st.markdown('<h1 class="animated-title">AI-POWERED QUOTE GENERATOR</h1>', unsafe_allow_html=True)
@@ -200,7 +178,7 @@ with col1:
 
 # --- Structured Prompt ---
 with col2:
-    st.subheader("STRUCTUREC PROMPT")
+    st.subheader("STRUCTURED PROMPT")
     mood = st.text_input("Mood (e.g., resilience, creativity)", key="mood")
     audience = st.text_input("Audience (optional, e.g., students, founders)", key="audience")
 
@@ -237,63 +215,18 @@ with col2:
                 except Exception as e:
                     st.error(f"Error: {e}")
 
-# Feedback Section
+# --- Feedback Section ---
 st.markdown("""
-    <style>
-    .feedback-card {
-        background-color: #f5f5f5;
-        padding: 30px 25px 20px 25px;
-        border-radius: 10px;
-        width: 500px;
-        margin: 40px auto;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-        text-align: center;
-    }
-    .feedback-card h3 {
-        margin-bottom: 10px;
-        font-size: 22px;
-        color: #333333;
-    }
-    .feedback-card p {
-        font-size: 14px;
-        color: #666666;
-        margin-bottom: 15px;
-    }
-    .feedback-box textarea {
-        width: 100% !important;
-        height: 100px !important;
-        border-radius: 5px;
-        border: 1px solid #cccccc;
-        padding: 10px;
-        font-size: 14px;
-        resize: vertical;
-        background-color: #ffffff;
-        Text color: #000000;
-    }
-    .feedback-btn button {
-        background-color: #009999;
-        color: white;
-        font-weight: bold;
-        padding: 8px 20px;
-        border-radius: 5px;
-        border: none;
-        cursor: pointer;
-    }
-    .feedback-btn button:hover {
-        background-color: #007777;
-    }
-    </style>
-    <div class="feedback-card">
-        <h3> Share Your Feedback</h3>
-        <p>If you have any suggestions or feedback, feel free to drop them here. I’d love to hear your thoughts!</p>
-        <form action="https://formspree.io/f/xanbwkle" method="POST">
-            <div class="feedback-box">
-                <textarea name="feedback" placeholder="Your feedback here..." required></textarea>
-            </div>
-            <br/>
-            <div class="feedback-btn">
-                <button type="submit">Send</button>
-            </div>
-        </form>
-    </div>
+<div class="feedback-card">
+    <h3>Share Your Feedback</h3>
+    <p>If you have any suggestions or feedback, feel free to drop them here. I’d love to hear your thoughts!</p>
+    <form action="https://formspree.io/f/xanbwkle" method="POST">
+        <div class="feedback-box">
+            <textarea name="feedback" placeholder="Your feedback here..." required></textarea>
+        </div><br/>
+        <div class="feedback-btn">
+            <button type="submit">Send</button>
+        </div>
+    </form>
+</div>
 """, unsafe_allow_html=True)
