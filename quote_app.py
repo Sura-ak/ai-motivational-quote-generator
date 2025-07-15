@@ -131,7 +131,7 @@ with col1:
 
 # --- Structured Prompt ---
 with col2:
-    st.subheader("STRUCTURED PROMPT")
+    st.subheader("STRUCTUREC PROMPT")
     mood = st.text_input("Mood (e.g., resilience, creativity)", key="mood")
     audience = st.text_input("Audience (optional, e.g., students, founders)", key="audience")
 
