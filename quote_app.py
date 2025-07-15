@@ -113,6 +113,19 @@ st.markdown("""
             .feedback-card {
                 background-color: #1e1e1e !important;
             }
+            .feedback-card h3 {
+                color: #ffffff !important;
+            }
+            .feedback-card p {
+                color: #dddddd !important;
+            }
+            .feedback-box textarea {
+                background-color: #1e1e1e !important;
+                color: #ffffff !important;
+                border: 1px solid #444444 !important;
+                height:160px !important;
+                width: 100% !important;
+            }
 
         /* Text, labels, markdown, headers, and alert messages */
         h1, h2, h3, h4, h5, h6,
@@ -127,11 +140,16 @@ st.markdown("""
         /* Inputs, textareas, selectboxes */
         .stTextInput > div > div > input,
         .stTextArea > div > div > textarea,
-        .stSelectbox > div > div,
+        .stSelectbox > div > div {
+            background-color: #1e1e1e !important;
+            color: #ffffff !important;
+            border: 1px solid #444444 !important;}
         .feedback-box textarea {
             background-color: #1e1e1e !important;
             color: #ffffff !important;
             border: 1px solid #444444 !important;
+            height:160px !important;
+            width: 100% !important;
         }
 
         /* Placeholder text everywhere */
