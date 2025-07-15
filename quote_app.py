@@ -121,44 +121,44 @@ st.markdown("""
     .feedback-btn button:hover {
         background-color: #007777;
     }
-
-    /* Fix for dark mode */
-    @media (prefers-color-scheme: dark) {
-        body, .stApp {
-            background-color: #121212 !important;
-        }
-            h1, h2, h3, h4, h5, h6 {
-                color: #ffffff !important;
-            }
-
-        .animated-title,
-        .subtitle,
-        .feedback-card h3,
-        .feedback-card p {
-            color: #ffffff !important;
-        }
-
-        .stTextInput > div > div > input,
-        .stSelectbox > div > div,
-        .feedback-box textarea {
-            background-color: #1e1e1e !important;
-            color: #ffffff !important;
-            border: 1px solid #444444 !important;
-        }
-
-        .feedback-box textarea::placeholder {
-            color: #bbbbbb !important;
-        }
-
-        .stButton>button {
-            background-color: #007777 !important;
-            color: white !important;
-        }
+@media (prefers-color-scheme: dark) {
+    body, .stApp {
+        background-color: #121212 !important;
     }
 
-    /* Light mode placeholder fallback */
+    h1, h2, h3, h4, h5, h6,
+    .subtitle,
+    label,
+    .stTextInput label,
+    .stSelectbox label,
+    .feedback-card h3,
+    .feedback-card p {
+        color: #ffffff !important;
+    }
+
+    .stTextInput > div > div > input,
+    .stSelectbox > div > div,
+    .feedback-box textarea {
+        background-color: #1e1e1e !important;
+        color: #ffffff !important;
+        border: 1px solid #444444 !important;
+    }
+
     .feedback-box textarea::placeholder {
-        color: #666666 !important;
+        color: #bbbbbb !important;
+    }
+
+    .stButton>button {
+        background-color: #007777 !important;
+        color: white !important;
+    }
+
+    /* Fix dark mode placeholder in text input */
+    ::placeholder {
+        color: #bbbbbb !important;
+    }
+}
+   
     }
 </style>
 """, unsafe_allow_html=True)
