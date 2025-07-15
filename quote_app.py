@@ -56,9 +56,14 @@ section [data-testid="stMarkdownContainer"] a {
         .subtitle {
             text-align: center;
             font-size: 1.1rem;
-            color: #003333;
+            color: #003333 !important; 
             margin-bottom: 2rem;
         }
+            @media (prefers-color-scheme: dark) {
+                .subtitle {
+                    color: #ffffff !important;
+                }
+            }
         .stTextInput > div > div > input,
         .stSelectbox > div > div {
             background-color: #ffffff !important;
@@ -96,7 +101,7 @@ section [data-testid="stMarkdownContainer"] a {
         body, .stApp {
             background-color: #121212 !important;
         }
-        .animated-title, .subtitle, .feedback-card h3, .feedback-card p {
+        .animated-title, .subtitle, .subtitle* .feedback-card h3, .feedback-card p, .feedback-card*{
             color: #ffffff !important;
         }
         .stTextInput > div > div > input,
@@ -112,7 +117,7 @@ section [data-testid="stMarkdownContainer"] a {
         }
     }
 </style>
-    </>
+
 """, unsafe_allow_html=True)
 
 
